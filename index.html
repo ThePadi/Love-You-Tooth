@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mleczakowo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Mleczakowo, gabinet stomatologii dziecięcej. Strona demonstracyjna.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap">
+<style>
+/* Layout: playful single page. Brushing-game hero (scrub plaque, pop germs) > age stages > priced services > gift-wrap game > parent tips > doctor + contact > pull-toy footer */
+:root{
+  --bg:#fbf6fa;
+  --surface:#ffffff;
+  --gum:#f6c9d6;
+  --ink:#23224a;
+  --ink-soft:#55557a;
+  --heart:#d6355a;
+  --mint:#2f9e8f;
+  --mint-soft:#dcf3ee;
+  --sun:#f2b33a;
+  --sky:#4f8fd6;
+  --line:#e9dfe8;
+  --display:"Fredoka", "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Nunito", "Segoe UI", system-ui, sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --pop:cubic-bezier(0.34,1.56,0.64,1);
+  --r:24px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:10px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.98;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(34px,5vw,60px)}
+h3{font-size:22px;line-height:1.15;font-weight:600}
+p{margin:0}
+.label{font:800 12px/1.2 var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--mint)}
+.lede{color:var(--ink-soft);max-width:58ch}
+section{padding-block:clamp(64px,9vw,120px)}
+.sec-head{display:grid;gap:14px;margin-bottom:clamp(32px,5vw,56px);max-width:760px}
+
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:700 17px/1 var(--body);padding:16px 22px;border-radius:999px;text-decoration:none;transition:transform .25s var(--pop),box-shadow .25s var(--ease),background .2s}
+.btn-primary{background:var(--heart);color:#fff;box-shadow:0 6px 0 #a3203f}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 0 #a3203f}
+.btn-primary:active{transform:translateY(4px);box-shadow:0 2px 0 #a3203f}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-small{padding:10px 16px;font-size:15px}
+
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.site.scrolled{border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:38px;height:38px;flex:none}
+.brand b{font:700 22px/1 var(--display);display:block}
+.brand small{font:700 12px/1.2 var(--body);color:var(--ink-soft);display:block;margin-top:3px}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{text-decoration:none;font-weight:700;font-size:15px}
+.nav-links a:not(.btn):hover{color:var(--heart)}
+@media (max-width:860px){.nav-links a:not(.btn){display:none}}
+@media (max-width:420px){.brand small{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(28px,5vw,56px) clamp(48px,7vw,80px)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero h1{font-size:clamp(46px,7.4vw,96px);line-height:.95}
+.hero h1 .w{display:inline-block}
+.hero h1 em{font-style:normal;color:var(--heart)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.facts{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.facts li{font:700 14px/1 var(--body);padding:9px 13px;border-radius:999px;background:var(--surface);box-shadow:inset 0 0 0 1.5px var(--line)}
+
+.game{min-width:0;display:grid;gap:14px}
+.brush-stage{position:relative;width:100%;aspect-ratio:3/2;max-width:100%;border-radius:32px;overflow:hidden;
+  background:radial-gradient(120% 90% at 70% 0%,#fff 0%,transparent 60%),linear-gradient(180deg,#eef7fb 0%,#fdf2f6 100%);
+  box-shadow:inset 0 0 0 2px var(--line);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:none}
+.layers{position:absolute;inset:-10%}
+.layers svg.mouth,.layers canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.layers canvas{pointer-events:none}
+.germ{position:absolute;width:9%;aspect-ratio:1;margin:-4.5% 0 0 -4.5%;pointer-events:none;z-index:2}
+.germ svg{width:100%;height:100%;animation:wobble 1.6s ease-in-out infinite;transform-origin:50% 60%}
+.germ:nth-child(2n) svg{animation-duration:1.2s;animation-direction:reverse}
+@keyframes wobble{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
+.germ.pop{animation:popout .35s var(--ease) forwards}
+@keyframes popout{0%{transform:scale(1);opacity:1}40%{transform:scale(1.5);opacity:1}100%{transform:scale(0);opacity:0}}
+.brush{position:absolute;left:0;top:0;width:34%;pointer-events:none;z-index:4;will-change:transform;transform-origin:12% 50%}
+.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:inset 0 0 0 2px rgba(79,143,214,.35);pointer-events:none;z-index:3}
+.spark{position:absolute;width:6%;margin:-3% 0 0 -3%;pointer-events:none;z-index:3;opacity:0;transform:scale(0)}
+.brush-stage.clean .spark{animation:twinkle 1.4s var(--pop) infinite;animation-delay:var(--d)}
+@keyframes twinkle{0%{opacity:0;transform:scale(0) rotate(0)}30%{opacity:1;transform:scale(1.1) rotate(20deg)}70%{opacity:1;transform:scale(.9) rotate(40deg)}100%{opacity:0;transform:scale(0) rotate(60deg)}}
+.win{position:absolute;left:50%;top:10%;transform:translate(-50%,-20px) scale(.9);opacity:0;z-index:5;background:var(--ink);color:#fff;font:700 clamp(15px,2.2vw,20px)/1.2 var(--display);padding:12px 18px;border-radius:999px;white-space:nowrap;transition:opacity .4s var(--ease),transform .5s var(--pop);pointer-events:none}
+.brush-stage.clean .win{opacity:1;transform:translate(-50%,0) scale(1)}
+.panel{display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:center}
+.meter{display:grid;gap:8px;min-width:0}
+.meter-top{display:flex;justify-content:space-between;gap:12px;font:800 12px/1.2 var(--body);text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft)}
+.meter-top b{font:700 18px/1 var(--display);letter-spacing:0;text-transform:none;color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{height:14px;border-radius:999px;background:var(--surface);box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--mint),#58c7b6);transition:width .25s var(--ease)}
+.panel .btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.chipbtn{border:0;cursor:pointer;font:800 13px/1 var(--body);padding:11px 14px;border-radius:999px;background:var(--surface);color:var(--ink);box-shadow:0 3px 0 var(--line),inset 0 0 0 1.5px var(--line);transition:transform .2s var(--pop)}
+.chipbtn:hover{transform:translateY(-2px)}
+.chipbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line),inset 0 0 0 1.5px var(--line)}
+.chipbtn[disabled]{opacity:.5;cursor:default;transform:none}
+.game-hint{font-size:14px;color:var(--ink-soft)}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.panel{grid-template-columns:1fr}.panel .btns{justify-content:flex-start}}
+
+/* age stages */
+.ages{background:var(--surface);border-radius:48px;margin-inline:clamp(8px,2vw,24px)}
+.age-top{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end;margin-bottom:28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:0;cursor:pointer;font:700 18px/1 var(--display);padding:14px 20px;border-radius:999px;background:var(--bg);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line);transition:background .25s,color .25s,transform .25s var(--pop)}
+.chip:hover{transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none}
+.chip small{font:800 11px/1 var(--body);letter-spacing:.08em;opacity:.7;margin-left:4px}
+.grow{display:flex;align-items:center;gap:14px;padding:12px 18px 12px 12px;border-radius:22px;background:var(--mint-soft)}
+.grow svg{width:56px;height:56px;transition:transform .6s var(--pop);transform-origin:50% 90%}
+.grow .count{font:700 30px/1 var(--display);font-variant-numeric:tabular-nums;display:block}
+.grow .count-l{font:800 11px/1.3 var(--body);text-transform:uppercase;letter-spacing:.1em;color:var(--mint)}
+.stage-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.scard{background:var(--bg);border-radius:var(--r);padding:24px;display:grid;gap:10px;align-content:start;min-width:0}
+.scard .tag{font:800 11px/1 var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--heart)}
+.scard p{color:var(--ink-soft);font-size:16px}
+@media (max-width:900px){.age-top{grid-template-columns:1fr}.stage-cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.stage-cards{grid-template-columns:1fr}}
+
+/* services */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.svc{position:relative;background:var(--surface);border-radius:var(--r);padding:26px 24px 24px;display:grid;gap:12px;align-content:start;box-shadow:0 1px 0 var(--line),inset 0 0 0 1.5px var(--line);min-width:0}
+.svc-ill{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;background:var(--tint)}
+.svc-ill svg{width:48px;height:48px}
+.svc:hover .svc-ill svg{animation:wiggle .5s var(--ease)}
+@keyframes wiggle{0%,100%{transform:rotate(0)}16%{transform:rotate(3deg)}33%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}66%{transform:rotate(-3deg)}83%{transform:rotate(2deg)}}
+.svc p{color:var(--ink-soft);font-size:16px}
+.price{position:absolute;top:18px;right:18px;transform-origin:50% -10px;font:700 17px/1 var(--display);background:var(--sun);color:var(--ink);padding:9px 12px 8px;border-radius:10px;font-variant-numeric:tabular-nums}
+.price::before{content:"";position:absolute;left:50%;top:-12px;width:2px;height:12px;background:var(--ink);transform:translateX(-50%)}
+.price::after{content:"";position:absolute;left:50%;top:6px;width:6px;height:6px;border-radius:50%;background:var(--bg);transform:translateX(-50%)}
+.price.soft{background:var(--mint-soft);font:800 12px/1.2 var(--body);padding:10px 12px 8px}
+.svc:hover .price{animation:swing .9s var(--ease)}
+@keyframes swing{0%{transform:rotate(0)}20%{transform:rotate(12deg)}45%{transform:rotate(-8deg)}70%{transform:rotate(4deg)}100%{transform:rotate(0)}}
+.svc h3{padding-right:96px}
+.note{margin-top:20px;font-size:14px;color:var(--ink-soft)}
+@media (max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* gift wrap */
+.wrapsec .inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center;background:var(--ink);color:#fff;border-radius:48px;padding:clamp(28px,5vw,64px)}
+.wrapsec .label{color:var(--sun)}
+.wrapsec .lede{color:#d4d3ea}
+.swatches{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.sw{border:0;cursor:pointer;display:grid;gap:8px;justify-items:center;background:none;color:#fff;font:800 13px/1 var(--body);padding:0}
+.sw i{display:block;width:64px;height:64px;border-radius:18px;background:var(--p);box-shadow:inset 0 0 0 3px rgba(255,255,255,.18);transition:transform .25s var(--pop),box-shadow .25s}
+.sw:hover i{transform:translateY(-3px) rotate(-4deg)}
+.sw[aria-pressed="true"] i{box-shadow:0 0 0 3px var(--ink),0 0 0 6px var(--sun)}
+.giftstage{display:grid;place-items:center;min-height:320px}
+.gift{position:relative;width:240px;height:200px;perspective:900px}
+.box{position:absolute;inset:0;border-radius:18px;background:#fff;display:grid;place-items:center;box-shadow:0 18px 0 -6px rgba(0,0,0,.25)}
+.box svg{width:110px;height:110px}
+.paper{position:absolute;top:0;bottom:0;width:50%;background:var(--paper);transition:transform .65s var(--ease)}
+.paper-l{left:0;border-radius:18px 0 0 18px;transform-origin:0 50%;transform:rotateY(-112deg)}
+.paper-r{right:0;border-radius:0 18px 18px 0;transform-origin:100% 50%;transform:rotateY(112deg);transition-delay:.12s}
+.ribbon-v,.ribbon-h{position:absolute;background:var(--sun);transition:transform .45s var(--ease)}
+.ribbon-v{left:calc(50% - 13px);width:26px;top:0;bottom:0;transform:scaleY(0);transform-origin:50% 0}
+.ribbon-h{top:calc(50% - 13px);height:26px;left:0;right:0;transform:scaleX(0);transform-origin:0 50%}
+.bow{position:absolute;left:50%;top:-46px;width:110px;margin-left:-55px;transform:scale(0) rotate(-20deg);transition:transform .55s var(--pop)}
+.gift.wrapped .paper{transform:rotateY(0)}
+.gift.wrapped .ribbon-v{transform:scaleY(1);transition-delay:.62s}
+.gift.wrapped .ribbon-h{transform:scaleX(1);transition-delay:.78s}
+.gift.wrapped .bow{transform:scale(1) rotate(0);transition-delay:.95s}
+.gift-caption{margin-top:30px;font:600 20px/1.3 var(--display);text-align:center;min-height:1.3em;color:var(--sun)}
+@media (max-width:860px){.wrapsec .inner{grid-template-columns:1fr}}
+
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.tip{display:grid;gap:12px;align-content:start;padding-top:22px;border-top:3px solid var(--ink);min-width:0}
+.tip svg{width:58px;height:58px}
+.tip svg *{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tip svg .acc{stroke:var(--heart)}
+.tip p{color:var(--ink-soft);font-size:16px}
+.draw svg *{stroke-dasharray:var(--len,200);stroke-dashoffset:var(--len,200);transition:stroke-dashoffset .8s var(--ease)}
+.draw.in svg *{stroke-dashoffset:0}
+@media (max-width:900px){.tips{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.tips{grid-template-columns:1fr}}
+
+/* doctor + contact */
+.doc-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+.doc{background:var(--mint-soft);border-radius:36px;padding:clamp(26px,4vw,48px);display:grid;gap:22px;align-content:start;min-width:0}
+.doc .quote{font:600 clamp(26px,3.2vw,38px)/1.12 var(--display);text-wrap:balance}
+.doc .quote span{color:var(--heart)}
+.doc dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:16px}
+.doc dt{font:800 12px/1.6 var(--body);text-transform:uppercase;letter-spacing:.1em;color:var(--mint)}
+.doc dd{margin:0}
+.contact{background:var(--surface);border-radius:36px;padding:clamp(26px,4vw,48px);display:grid;gap:22px;align-content:start;box-shadow:inset 0 0 0 1.5px var(--line);min-width:0}
+.pin{display:flex;gap:16px;align-items:center}
+.pin-dot{position:relative;width:52px;height:52px;flex:none;border-radius:50%;background:var(--heart);display:grid;place-items:center}
+.pin-dot::after{content:"";position:absolute;inset:0;border-radius:50%;animation:pulse 2s var(--ease) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(214,53,90,.45)}100%{box-shadow:0 0 0 22px rgba(214,53,90,0)}}
+.pin-dot svg{width:24px;height:24px}
+.pin b{font:700 22px/1.15 var(--display);display:block}
+.phone{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.phone .num{font:700 clamp(32px,4vw,44px)/1 var(--display);font-variant-numeric:tabular-nums;user-select:all}
+.small{font-size:14px;color:var(--ink-soft)}
+@media (max-width:860px){.doc-grid{grid-template-columns:1fr}}
+
+/* footer */
+footer{position:relative;padding-block:40px 120px;overflow:hidden;border-top:1px solid var(--line)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px;color:var(--ink-soft)}
+.track{position:absolute;left:0;right:0;bottom:22px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 12px,transparent 12px 20px)}
+.pull{position:absolute;bottom:24px;left:0;width:96px;height:84px;will-change:transform}
+.pull svg{width:100%;height:100%;overflow:visible}
+.wheel{transform-box:fill-box;transform-origin:center}
+
+.callbar{display:none}
+@media (max-width:760px){
+  .callbar{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;justify-content:center}
+  .callbar .btn{width:100%;justify-content:center}
+  footer{padding-bottom:170px}
+}
+
+.pre{opacity:0;transform:translateY(24px)}
+.rv{transition:opacity .7s var(--ease),transform .7s var(--ease)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .draw svg *{stroke-dashoffset:0}
+  .brush-stage.clean .spark{opacity:1;transform:scale(1)}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="tooth" viewBox="0 0 100 100">
+      <path d="M50 11C61 3 88 4 92 26C95 43 88 57 84 70C80 84 78 96 70 96C62 96 61 81 57 73C54 68 46 68 43 73C39 81 38 96 30 96C22 96 20 84 16 70C12 57 5 43 8 26C12 4 39 3 50 11Z"/>
+    </symbol>
+    <symbol id="germ" viewBox="0 0 60 60">
+      <g stroke="#23224a" stroke-width="3" stroke-linecap="round">
+        <path d="M30 6v6M30 48v6M6 30h6M48 30h6M13 13l4 4M43 43l4 4M47 13l-4 4M13 47l4-4"/>
+      </g>
+      <circle cx="30" cy="30" r="17" fill="#7cc46a" stroke="#23224a" stroke-width="3"/>
+      <circle cx="24" cy="27" r="4.5" fill="#fff" stroke="#23224a" stroke-width="2"/>
+      <circle cx="36" cy="27" r="4.5" fill="#fff" stroke="#23224a" stroke-width="2"/>
+      <circle cx="25" cy="28" r="2" fill="#23224a"/><circle cx="37" cy="28" r="2" fill="#23224a"/>
+      <path d="M23 37q7 5 14 0" fill="none" stroke="#23224a" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M27 38.5l1.5 3 1.5-2.6 1.5 2.6 1.5-3" fill="#fff" stroke="#23224a" stroke-width="1.2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="star" viewBox="0 0 40 40"><path d="M20 2l4.5 13.5L38 20l-13.5 4.5L20 38l-4.5-13.5L2 20l13.5-4.5z" fill="#f2b33a" stroke="#23224a" stroke-width="2" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="site" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Mleczakowo, strona główna">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#tooth" fill="#fff" stroke="#23224a" stroke-width="5"/><path d="M50 58c-9-6-15-11-15-17 0-4 3-7 7-7 3 0 6 2 8 5 2-3 5-5 8-5 4 0 7 3 7 7 0 6-6 11-15 17z" fill="#d6355a"/></svg>
+      <span><b>Mleczakowo</b><small>stomatologia dziecięca</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Główna nawigacja">
+      <a href="#wiek">Dla kogo</a>
+      <a href="#uslugi">Usługi i ceny</a>
+      <a href="#przed-wizyta">Przed wizytą</a>
+      <a href="#kontakt">Kontakt</a>
+      <a class="btn btn-primary btn-small" href="#kontakt">Umów wizytę</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="label">Gabinet stomatologii dziecięcej</p>
+        <h1 id="h1"><span class="w">Pierwsza</span> <span class="w">wizyta</span> <span class="w">może</span> <span class="w">być</span> <em class="w">przygodą.</em></h1>
+        <p class="lede">Profilaktyka, leczenie mleczaków i nauka szczotkowania, od pierwszego ząbka. Spokojnie, krok po kroku i z wytłumaczeniem wszystkiego po kolei.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#kontakt">Umów wizytę</a>
+          <a class="btn btn-ghost" href="#uslugi">Zobacz usługi</a>
+        </div>
+        <ul class="facts" aria-label="W skrócie">
+          <li>Dzieci od pierwszego ząbka</li>
+          <li>Wizyty adaptacyjne</li>
+          <li>Karta, BLIK, gotówka</li>
+        </ul>
+      </div>
+
+      <div class="game">
+        <div class="brush-stage" id="stage" aria-label="Zabawa: przesuwaj szczoteczką po ząbkach, żeby je wyczyścić i przegonić bakterie.">
+          <div class="layers" id="layers">
+          <svg class="mouth" viewBox="0 0 600 400" aria-hidden="true">
+            <defs>
+              <clipPath id="inner"><path d="M110 182Q300 56 490 182Q300 420 110 182Z"/></clipPath>
+            </defs>
+            <path d="M62 176Q300 6 538 176Q300 446 62 176Z" fill="#ea7d96" stroke="#23224a" stroke-width="6" stroke-linejoin="round"/>
+            <path d="M84 160Q100 150 116 168M516 168Q500 150 484 160" fill="none" stroke="#23224a" stroke-width="5" stroke-linecap="round"/>
+            <g clip-path="url(#inner)">
+              <rect x="0" y="0" width="600" height="400" fill="#6b2238"/>
+              <ellipse cx="300" cy="300" rx="130" ry="46" fill="#ef8fa6"/>
+              <path d="M300 268v30" stroke="#d96b86" stroke-width="4" stroke-linecap="round"/>
+              <g id="teeth"></g>
+            </g>
+            <path d="M110 182Q300 56 490 182Q300 420 110 182Z" fill="none" stroke="#23224a" stroke-width="5" stroke-linejoin="round"/>
+          </svg>
+          <canvas id="plaque"></canvas>
+          <div id="germs"></div>
+          <div id="sparks"></div>
+          <svg class="brush" id="brush" viewBox="0 0 220 70" aria-hidden="true">
+            <rect x="60" y="26" width="156" height="18" rx="9" fill="#4f8fd6" stroke="#23224a" stroke-width="4"/>
+            <rect x="150" y="30" width="44" height="10" rx="5" fill="#9cc2ef"/>
+            <rect x="6" y="22" width="66" height="26" rx="11" fill="#fff" stroke="#23224a" stroke-width="4"/>
+            <g stroke="#23224a" stroke-width="3" stroke-linecap="round"><path d="M14 22V6M24 22V5M34 22V5M44 22V5M54 22V5M64 22V6"/></g>
+            <g stroke="#58c7b6" stroke-width="5" stroke-linecap="round"><path d="M14 18V9M24 18V8M34 18V8M44 18V8M54 18V8M64 18V9"/></g>
+          </svg>
+          </div>
+          <div class="win" id="win">Lśniące ząbki! Brawo!</div>
+        </div>
+        <div class="panel">
+          <div class="meter">
+            <div class="meter-top"><span>Czyste ząbki <b id="pct">0%</b></span><span>Bakterie <b id="germCount">6</b></span></div>
+            <div class="bar" role="progressbar" aria-label="Czyste ząbki" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="barFill"></i></div>
+          </div>
+          <div class="btns">
+            <button class="chipbtn" type="button" id="auto">Wyszoruj za mnie</button>
+            <button class="chipbtn" type="button" id="reset">Jeszcze raz</button>
+          </div>
+        </div>
+        <p class="game-hint">Przesuwaj szczoteczką po ząbkach, aż znikną wszystkie bakterie. Prawdziwe szczotkowanie trwa 2 minuty, dwa razy dziennie.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ages" id="wiek" aria-labelledby="h-wiek">
+    <div class="wrap">
+      <div class="age-top">
+        <div class="sec-head" style="margin-bottom:0">
+          <p class="label">Dla kogo</p>
+          <h2 id="h-wiek">Ile lat ma Twój maluch?</h2>
+          <p class="lede">Każdy etap to inne potrzeby. Wybierz wiek, a pokażemy, czym zajmujemy się na wizycie i co warto robić w domu.</p>
+        </div>
+        <div class="grow" aria-live="polite">
+          <svg viewBox="0 0 100 100" aria-hidden="true" id="growTooth"><use href="#tooth" fill="#fff" stroke="#23224a" stroke-width="4"/></svg>
+          <div><span class="count" id="growCount">20</span><span class="count-l" id="growLabel">mleczaków w komplecie</span></div>
+        </div>
+      </div>
+      <div class="chips" role="group" aria-label="Wiek dziecka">
+        <button class="chip" type="button" data-age="a0" aria-pressed="false">0–1 <small>LAT</small></button>
+        <button class="chip" type="button" data-age="a1" aria-pressed="false">1–3 <small>LATA</small></button>
+        <button class="chip" type="button" data-age="a3" aria-pressed="true">3–6 <small>LAT</small></button>
+        <button class="chip" type="button" data-age="a6" aria-pressed="false">6–12 <small>LAT</small></button>
+      </div>
+      <div class="stage-cards" id="ageCards" style="margin-top:28px">
+        <article class="scard" data-ages="a0">
+          <span class="tag">Wizyta</span>
+          <h3>Pierwsza kontrola z pierwszym ząbkiem</h3>
+          <p>Pierwszą wizytę warto zaplanować, gdy pojawi się pierwszy ząb, najpóźniej około pierwszych urodzin. Obejrzymy dziąsła i ząbki, a rodzice dowiedzą się, jak myć i czym.</p>
+        </article>
+        <article class="scard" data-ages="a0 a1">
+          <span class="tag">W domu</span>
+          <h3>Pasta z fluorem, porcja jak ziarenko ryżu</h3>
+          <p>Do 3. roku życia: pasta z fluorem 1000 ppm, ilość wielkości ziarenka ryżu. Myje rodzic, dwa razy dziennie.</p>
+        </article>
+        <article class="scard" data-ages="a1 a3">
+          <span class="tag">Wizyta</span>
+          <h3>Poznanie gabinetu bez leczenia</h3>
+          <p>Fotel, lusterko, lampa i liczenie ząbków. Dziecko oswaja się z gabinetem, zanim będzie potrzebne jakiekolwiek leczenie.</p>
+        </article>
+        <article class="scard" data-ages="a1 a3 a6">
+          <span class="tag">Profilaktyka</span>
+          <h3>Fluoryzacja</h3>
+          <p>Lakier z fluorem wzmacnia szkliwo i chroni przed próchnicą. Wykonujemy go przy badaniu kontrolnym.</p>
+        </article>
+        <article class="scard" data-ages="a3 a6">
+          <span class="tag">Leczenie</span>
+          <h3>Leczenie próchnicy mleczaków</h3>
+          <p>Zęby mleczne też się leczy. Chory mleczak może boleć i zaszkodzić zębowi stałemu, który rośnie pod nim.</p>
+        </article>
+        <article class="scard" data-ages="a3">
+          <span class="tag">W domu</span>
+          <h3>Porcja pasty jak ziarnko grochu</h3>
+          <p>Od 3. do 6. roku życia: pasta 1000 ppm fluoru, ilość wielkości ziarnka grochu. Dziecko uczy się samo, rodzic poprawia.</p>
+        </article>
+        <article class="scard" data-ages="a6">
+          <span class="tag">Profilaktyka</span>
+          <h3>Lakowanie pierwszych stałych trzonowców</h3>
+          <p>Pierwsze stałe trzonowce wyrzynają się około 6. roku życia, za ostatnimi mleczakami. Lakowanie uszczelnia ich bruzdy, w których najłatwiej o próchnicę.</p>
+        </article>
+        <article class="scard" data-ages="a6">
+          <span class="tag">Wizyta</span>
+          <h3>Kontrola zgryzu przy wymianie zębów</h3>
+          <p>Wymiana mleczaków na zęby stałe to dobry moment, żeby sprawdzić zgryz i w razie potrzeby skierować do ortodonty.</p>
+        </article>
+        <article class="scard" data-ages="a0 a1 a3 a6">
+          <span class="tag">Rytm</span>
+          <h3>Kontrola co 6 miesięcy</h3>
+          <p>Regularne wizyty pozwalają złapać próchnicę wcześnie, gdy leczenie jest krótkie i proste.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="uslugi" aria-labelledby="h-uslugi">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Usługi i ceny</p>
+        <h2 id="h-uslugi">Co robimy na fotelu</h2>
+        <p class="lede">Plan i koszt leczenia omawiamy przed rozpoczęciem, żeby nic nie było niespodzianką.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc rv" data-reveal style="--tint:#ffe3ea">
+          <span class="price">200 zł</span>
+          <div class="svc-ill" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="11" fill="#fff" stroke="#23224a" stroke-width="2.6"/><path d="M28 28l12 12" stroke="#23224a" stroke-width="4" stroke-linecap="round"/><circle cx="16.5" cy="17" r="3" fill="#d6355a"/></svg></div>
+          <h3>Pierwsza wizyta, konsultacja</h3>
+          <p>Badanie, rozmowa z rodzicem i plan dalszych kroków. Dziecko poznaje gabinet.</p>
+        </article>
+        <article class="svc rv" data-reveal style="--tint:#dcf3ee">
+          <span class="price">180 zł</span>
+          <div class="svc-ill" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#tooth" x="6" y="6" width="36" height="36" fill="#fff" stroke="#23224a" stroke-width="5"/><path d="M38 8l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#f2b33a"/></svg></div>
+          <h3>Badanie kontrolne z fluoryzacją</h3>
+          <p>Przegląd ząbków co pół roku i lakier z fluorem wzmacniający szkliwo.</p>
+        </article>
+        <article class="svc rv" data-reveal style="--tint:#e3ecfb">
+          <span class="price">od 250 zł</span>
+          <div class="svc-ill" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 38L34 14" stroke="#23224a" stroke-width="4" stroke-linecap="round"/><rect x="30" y="6" width="12" height="12" rx="3" transform="rotate(45 36 12)" fill="#4f8fd6" stroke="#23224a" stroke-width="2.6"/></svg></div>
+          <h3>Leczenie ubytków</h3>
+          <p>Kolejne wizyty według planu: leczenie ubytków i zębów z próchnicą.</p>
+        </article>
+        <article class="svc rv" data-reveal style="--tint:#fff1d6">
+          <span class="price soft">wycena na wizycie</span>
+          <div class="svc-ill" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#tooth" x="6" y="6" width="36" height="36" fill="#fff" stroke="#23224a" stroke-width="5"/><path d="M19 19c3 2 7 2 10 0" stroke="#d6355a" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg></div>
+          <h3>Leczenie zębów mlecznych</h3>
+          <p>Ubytki w mleczakach leczymy materiałami dobranymi do wieku i współpracy dziecka.</p>
+        </article>
+        <article class="svc rv" data-reveal style="--tint:#dcf3ee">
+          <span class="price soft">wycena na wizycie</span>
+          <div class="svc-ill" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#tooth" x="6" y="6" width="36" height="36" fill="#fff" stroke="#23224a" stroke-width="5"/><path d="M14 18q5 4 10 0t10 0" stroke="#2f9e8f" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+          <h3>Lakowanie zębów stałych</h3>
+          <p>Uszczelnienie bruzd na powierzchni żującej nowych trzonowców.</p>
+        </article>
+        <article class="svc rv" data-reveal style="--tint:#ffe3ea">
+          <span class="price soft">w trakcie wizyty</span>
+          <div class="svc-ill" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="6" y="26" width="30" height="6" rx="3" transform="rotate(-30 21 29)" fill="#4f8fd6" stroke="#23224a" stroke-width="2.4"/><path d="M30 12v8M34 10v8M38 8v8" stroke="#23224a" stroke-width="2.6" stroke-linecap="round" transform="rotate(-30 34 14)"/></svg></div>
+          <h3>Nauka szczotkowania</h3>
+          <p>Pokazujemy rodzicom i dzieciom, jak myć ząbki, czym i jak długo.</p>
+        </article>
+      </div>
+      <p class="note">Ceny przykładowe. Płatność gotówką, kartą lub BLIK.</p>
+    </div>
+  </section>
+
+  <section class="wrapsec" aria-labelledby="h-wrap">
+    <div class="wrap">
+      <div class="inner">
+        <div>
+          <p class="label">Zabawa dla małych pacjentów</p>
+          <h2 id="h-wrap" style="margin-top:14px">Wypadł mleczak? Zapakuj go dla Wróżki Zębuszki.</h2>
+          <p class="lede" style="margin-top:16px">Wybierz papier, a prezent zapakuje się sam. Pokażcie go razem dziecku przed pierwszą wizytą.</p>
+          <div class="swatches" role="group" aria-label="Wybierz papier">
+            <button class="sw" type="button" aria-pressed="false" data-name="w groszki" style="--p:radial-gradient(circle,#d6355a 22%,transparent 25%) 0 0/18px 18px,#ffe3ea"><i></i>Groszki</button>
+            <button class="sw" type="button" aria-pressed="false" data-name="w paski" style="--p:repeating-linear-gradient(45deg,#2f9e8f 0 8px,#dcf3ee 8px 16px)"><i></i>Paski</button>
+            <button class="sw" type="button" aria-pressed="false" data-name="w kratkę" style="--p:conic-gradient(#4f8fd6 25%,#e3ecfb 0 50%,#4f8fd6 0 75%,#e3ecfb 0) 0 0/24px 24px"><i></i>Kratka</button>
+            <button class="sw" type="button" aria-pressed="false" data-name="nocne niebo" style="--p:radial-gradient(circle,#f2b33a 14%,transparent 17%) 0 0/22px 22px,radial-gradient(circle,#ffffff 8%,transparent 11%) 11px 11px/22px 22px,#2e2d63"><i></i>Nocne niebo</button>
+          </div>
+        </div>
+        <div>
+          <div class="giftstage">
+            <div class="gift" id="gift">
+              <div class="box"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#tooth" fill="#fff" stroke="#23224a" stroke-width="4"/><circle cx="38" cy="40" r="4" fill="#23224a"/><circle cx="62" cy="40" r="4" fill="#23224a"/><path d="M40 52q10 8 20 0" stroke="#23224a" stroke-width="4" fill="none" stroke-linecap="round"/></svg></div>
+              <div class="paper paper-l"></div>
+              <div class="paper paper-r"></div>
+              <div class="ribbon-v"></div>
+              <div class="ribbon-h"></div>
+              <svg class="bow" viewBox="0 0 110 56" aria-hidden="true"><path d="M55 40C40 10 8 4 6 24s30 22 49 16zM55 40c15-30 47-36 49-16s-30 22-49 16z" fill="#f2b33a" stroke="#23224a" stroke-width="3" stroke-linejoin="round"/><circle cx="55" cy="40" r="9" fill="#f2b33a" stroke="#23224a" stroke-width="3"/></svg>
+            </div>
+          </div>
+          <p class="gift-caption" id="giftCaption" aria-live="polite">Mleczak czeka na opakowanie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="przed-wizyta" aria-labelledby="h-przed">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Przed wizytą</p>
+        <h2 id="h-przed">Jak przygotować dziecko</h2>
+        <p class="lede">Kilka prostych rzeczy, które rodzice mogą zrobić w domu, żeby pierwsza wizyta była spokojna.</p>
+      </div>
+      <div class="tips">
+        <div class="tip draw">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M10 14h40v24H28l-10 9v-9h-8z"/><path class="acc" d="M20 26h20"/></svg>
+          <h3>Mów prosto, bez straszenia</h3>
+          <p>Zamiast „nie będzie bolało” powiedz „pani doktor policzy twoje ząbki”. Unikaj słów, które same w sobie straszą.</p>
+        </div>
+        <div class="tip draw">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="20"/><path class="acc" d="M30 18v13l8 5"/></svg>
+          <h3>Wybierz dobrą porę</h3>
+          <p>Najlepiej, gdy dziecko jest wyspane i najedzone. Poranne godziny często sprawdzają się najlepiej.</p>
+        </div>
+        <div class="tip draw">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="22" cy="18" r="7"/><circle cx="38" cy="18" r="7"/><circle cx="30" cy="34" r="15"/><path class="acc" d="M25 36q5 4 10 0"/></svg>
+          <h3>Zabierz przytulankę</h3>
+          <p>Ulubiona zabawka może usiąść obok na fotelu i też dać sobie policzyć ząbki.</p>
+        </div>
+        <div class="tip draw">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M12 46V22l18-10 18 10v24z"/><path class="acc" d="M24 46V32h12v14"/></svg>
+          <h3>Pobawcie się w dentystę</h3>
+          <p>W domu łyżeczka może być lusterkiem, a latarka lampą. Znane rzeczy w gabinecie mniej dziwią.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" aria-labelledby="h-kontakt" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label">Kto przyjmuje i gdzie</p>
+        <h2 id="h-kontakt">Do zobaczenia w gabinecie</h2>
+      </div>
+      <div class="doc-grid">
+        <div class="doc rv" data-reveal>
+          <p class="quote">Ząbki leczymy spokojnie, <span>krok po kroku.</span></p>
+          <dl>
+            <dt>Lekarz</dt><dd>lek. dent. Imię Nazwisko, stomatolog dziecięcy</dd>
+            <dt>Pacjenci</dt><dd>Dzieci od pierwszego ząbka i młodzież</dd>
+            <dt>Języki</dt><dd>Polski, angielski</dd>
+            <dt>Wizyty</dt><dd>Prywatne</dd>
+          </dl>
+        </div>
+        <div class="contact rv" data-reveal>
+          <div class="pin">
+            <span class="pin-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></span>
+            <div><b>Gabinet Mleczakowo</b><span>ul. Przykładowa 12, 00-001 Miasto</span></div>
+          </div>
+          <div>
+            <p class="label" style="margin-bottom:8px">Rejestracja telefoniczna</p>
+            <div class="phone">
+              <span class="num" id="phoneNum">123 456 789</span>
+              <button class="chipbtn" type="button" id="copyPhone">Kopiuj numer</button>
+            </div>
+          </div>
+          <p class="small">Terminy ustalamy telefonicznie. Jeśli nie odbieramy, oddzwonimy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Mleczakowo</span>
+    <span>Strona demonstracyjna. Nazwa, lekarz, adres, telefon i ceny są przykładowe.</span>
+  </div>
+  <div class="track" aria-hidden="true"></div>
+  <div class="pull" id="pull" aria-hidden="true">
+    <svg viewBox="0 0 96 84">
+      <path d="M2 50 Q-30 30 -60 46" stroke="#23224a" stroke-width="2" fill="none"/>
+      <g transform="translate(14 0) scale(.66)"><use href="#tooth" width="100" height="100" fill="#fff" stroke="#23224a" stroke-width="5"/><circle cx="38" cy="40" r="5" fill="#23224a"/><circle cx="62" cy="40" r="5" fill="#23224a"/><path d="M40 54q10 8 20 0" stroke="#d6355a" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+      <rect x="10" y="62" width="76" height="8" rx="4" fill="#d6355a"/>
+      <g class="wheel" id="w1"><circle cx="24" cy="74" r="9" fill="#f2b33a" stroke="#23224a" stroke-width="2.5"/><path d="M24 66v16M16 74h16" stroke="#23224a" stroke-width="2"/></g>
+      <g class="wheel" id="w2"><circle cx="72" cy="74" r="9" fill="#f2b33a" stroke="#23224a" stroke-width="2.5"/><path d="M72 66v16M64 74h16" stroke="#23224a" stroke-width="2"/></g>
+    </svg>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-primary" href="#kontakt">Umów wizytę</a></div>
+
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SVGNS='http://www.w3.org/2000/svg';
+
+  const header=document.querySelector('header.site');
+  const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>8);
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  if (!reduce){
+    document.querySelectorAll('.hero h1 .w').forEach((w,i)=>{
+      w.animate([{transform:'translateY(0)'},{transform:'translateY(-20px)'},{transform:'translateY(0)'}],{duration:400,delay:300+i*60,easing:'cubic-bezier(0.22,1,0.36,1)'});
+    });
+  }
+
+  /* ============ HERO: brushing game ============ */
+  const stage=document.getElementById('stage'), layers=document.getElementById('layers'), canvas=document.getElementById('plaque'), ctx=canvas.getContext('2d');
+  const teethG=document.getElementById('teeth'), germBox=document.getElementById('germs'), sparkBox=document.getElementById('sparks');
+  const brush=document.getElementById('brush'), pctEl=document.getElementById('pct'), barFill=document.getElementById('barFill'), bar=document.getElementById('bar');
+  const germCountEl=document.getElementById('germCount'), autoBtn=document.getElementById('auto'), resetBtn=document.getElementById('reset');
+  const VW=600, VH=400, R=28;
+
+  // tooth geometry in viewBox units
+  const upperTop=x=>118+66*Math.pow((x-300)/190,2);
+  const lowerBot=x=>292-110*Math.pow((x-300)/190,2);
+  const teeth=[];
+  for(let i=0;i<6;i++){
+    const d=i-2.5, cx=300+d*60, w=d===-.5||d===.5?58:54, h=62-Math.abs(d)*7;
+    teeth.push({x:cx-w/2,y:upperTop(cx)+14,w,h,up:true});
+  }
+  for(let i=0;i<6;i++){
+    const d=i-2.5, cx=300+d*54, w=50, h=48-Math.abs(d)*5;
+    teeth.push({x:cx-w/2,y:lowerBot(cx)-12-h,w,h,up:false});
+  }
+  function toothPath(t,ctx2){
+    const r=Math.min(16,t.w/2.6), {x,y,w,h}=t;
+    if (t.up){ // flat top (under gum), rounded bottom
+      return `M${x} ${y-12}H${x+w}V${y+h-r}Q${x+w} ${y+h} ${x+w-r} ${y+h}H${x+r}Q${x} ${y+h} ${x} ${y+h-r}Z`;
+    }
+    return `M${x} ${y+h+12}V${y+r}Q${x} ${y} ${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${y+h+12}Z`;
+  }
+  // draw lower first so upper overlaps
+  [...teeth.slice(6),...teeth.slice(0,6)].forEach(t=>{
+    const p=document.createElementNS(SVGNS,'path');
+    p.setAttribute('d',toothPath(t)); p.setAttribute('fill','#fffdf8'); p.setAttribute('stroke','#23224a'); p.setAttribute('stroke-width','4'); p.setAttribute('stroke-linejoin','round');
+    teethG.appendChild(p);
+    const s=document.createElementNS(SVGNS,'path');
+    const sx=t.x+10, sy=t.up? t.y+8 : t.y+10;
+    s.setAttribute('d',`M${sx} ${sy+16}Q${sx} ${sy} ${sx+12} ${sy}`); s.setAttribute('fill','none'); s.setAttribute('stroke','#ffffff'); s.setAttribute('stroke-width','4'); s.setAttribute('stroke-linecap','round'); s.setAttribute('opacity','.9');
+    teethG.appendChild(s);
+  });
+  // gums follow the tooth line and cover the roots
+  const gumPath=(edge,far)=>{ let d=`M90 ${far}`; for(let x=90;x<=510;x+=10) d+=`L${x} ${edge(x).toFixed(1)}`; return d+`L510 ${far}Z`; };
+  [gumPath(x=>upperTop(x)+16,20), gumPath(x=>lowerBot(x)-12,390)].forEach(d=>{
+    const g=document.createElementNS(SVGNS,'path'); g.setAttribute('d',d); g.setAttribute('fill','#f6a9bd'); teethG.appendChild(g);
+    const e=document.createElementNS(SVGNS,'path'); e.setAttribute('d',d); e.setAttribute('fill','none'); e.setAttribute('stroke','#e98aa4'); e.setAttribute('stroke-width','3'); teethG.appendChild(e);
+  });
+
+  // seeded random so the layout is stable
+  let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; };
+
+  let scale=1, dpr=1, samples=null, sampleTotal=0, cleanDone=false, germs=[];
+  function sizeCanvas(){
+    const rect=layers.getBoundingClientRect();
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    canvas.width=Math.round(rect.width*dpr); canvas.height=Math.round(rect.height*dpr);
+    scale=canvas.width/VW;
+  }
+  function paintPlaque(){
+    seed=7;
+    ctx.setTransform(1,0,0,1,0,0); ctx.globalCompositeOperation='source-over';
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.setTransform(scale,0,0,scale,0,0);
+    teeth.forEach(t=>{
+      ctx.save();
+      ctx.clip(new Path2D('M110 182Q300 56 490 182Q300 420 110 182Z'));
+      ctx.clip(new Path2D(toothPath(t)));
+      ctx.beginPath(); ctx.rect(t.x-4, t.up? t.y+3 : t.y-4, t.w+8, t.h+1); ctx.clip();
+      // film near the gum line and edges
+      const g=ctx.createLinearGradient(0,t.up?t.y:t.y+t.h,0,t.up?t.y+t.h:t.y);
+      g.addColorStop(0,'rgba(196,170,72,.95)'); g.addColorStop(.6,'rgba(214,192,96,.85)'); g.addColorStop(1,'rgba(222,204,120,.55)');
+      ctx.fillStyle=g; ctx.fillRect(t.x-4,t.y-14,t.w+8,t.h+28);
+      for(let k=0;k<14;k++){
+        ctx.fillStyle=`rgba(${150+rnd()*40|0},${150+rnd()*30|0},${50+rnd()*30|0},${.35+rnd()*.4})`;
+        ctx.beginPath(); ctx.arc(t.x+rnd()*t.w, t.y+rnd()*t.h, 3+rnd()*7, 0, Math.PI*2); ctx.fill();
+      }
+      ctx.restore();
+    });
+    // sample points where plaque exists
+    const img=ctx.getImageData(0,0,canvas.width,canvas.height).data, step=Math.max(3,Math.round(5*dpr));
+    const pts=[];
+    for(let y=0;y<canvas.height;y+=step) for(let x=0;x<canvas.width;x+=step){ const a=img[(y*canvas.width+x)*4+3]; if(a>60) pts.push((y*canvas.width+x)*4+3); }
+    samples=pts; sampleTotal=pts.length;
+  }
+  function placeGerms(){
+    germBox.innerHTML=''; germs=[];
+    const picks=[1,4,7,10,2,9];
+    picks.forEach((ti,k)=>{
+      const t=teeth[ti], gx=t.x+t.w*(.3+((k*37)%40)/100), gy=t.up? t.y+t.h*.55 : t.y+t.h*.45;
+      const el=document.createElement('div'); el.className='germ';
+      el.style.left=(gx/VW*100)+'%'; el.style.top=(gy/VH*100)+'%';
+      el.innerHTML='<svg viewBox="0 0 60 60"><use href="#germ"/></svg>';
+      germBox.appendChild(el); germs.push({el,x:gx,y:gy,alive:true});
+    });
+    germCountEl.textContent=germs.length;
+  }
+  function placeSparks(){
+    sparkBox.innerHTML='';
+    [0,2,3,5,7,8,10].forEach((ti,k)=>{
+      const t=teeth[ti], el=document.createElement('div'); el.className='spark';
+      el.style.left=((t.x+t.w*.7)/VW*100)+'%'; el.style.top=((t.up?t.y+10:t.y+8)/VH*100)+'%';
+      el.style.setProperty('--d',(k*0.18)+'s');
+      el.innerHTML='<svg viewBox="0 0 40 40"><use href="#star"/></svg>';
+      sparkBox.appendChild(el);
+    });
+  }
+  function setProgress(p){
+    const v=Math.round(p*100);
+    pctEl.textContent=v+'%'; barFill.style.width=v+'%'; bar.setAttribute('aria-valuenow',v);
+  }
+  function reset(){
+    cleanDone=false; stage.classList.remove('clean');
+    sizeCanvas(); paintPlaque(); placeGerms(); setProgress(0);
+    autoBtn.disabled=false;
+  }
+
+  // brush position in viewBox units of the head center
+  let last=null, bx=470, by=330, ang=-18, lastCheck=0, lastBubble=0, bubbles=0, autoRun=false;
+  function drawBrush(){
+    const rect=layers.getBoundingClientRect(), k=rect.width/VW;
+    const bw=brush.getBoundingClientRect().width;
+    // head center in brush svg ≈ (39,35) of 220x70
+    const hx=bx*k - bw*(39/220), hy=by*k - bw*(35/220);
+    brush.style.transform=`translate(${hx}px,${hy}px) rotate(${ang}deg)`;
+  }
+  function popGerm(g){
+    g.alive=false; g.el.classList.add('pop');
+    setTimeout(()=>g.el.remove(),400);
+    germCountEl.textContent=germs.filter(x=>x.alive).length;
+  }
+  function bubble(x,y){
+    if (reduce || bubbles>36) return;
+    const now=performance.now(); if (now-lastBubble<45) return; lastBubble=now;
+    const rect=layers.getBoundingClientRect(), k=rect.width/VW, s=(6+Math.random()*12)*k*1.6;
+    const b=document.createElement('span'); b.className='bubble';
+    b.style.width=b.style.height=s+'px';
+    b.style.left=(x*k-s/2+(Math.random()-.5)*30*k)+'px'; b.style.top=(y*k-s/2+(Math.random()-.5)*20*k)+'px';
+    layers.appendChild(b); bubbles++;
+    b.animate([{transform:'translate(0,0) scale(.4)',opacity:1},{transform:`translate(${(Math.random()-.5)*40}px,${-30-Math.random()*50}px) scale(1)`,opacity:0}],{duration:700+Math.random()*500,easing:'ease-out'}).onfinish=()=>{b.remove();bubbles--;};
+  }
+  function check(force){
+    const now=performance.now(); if(!force && now-lastCheck<110) return; lastCheck=now;
+    if(!samples || !sampleTotal) return;
+    const img=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+    let left=0; for(let i=0;i<samples.length;i++) if(img[samples[i]]>60) left++;
+    const p=1-left/sampleTotal; setProgress(Math.min(1,p/0.94));
+    if (p>=0.94 && !cleanDone) finish();
+  }
+  function finish(){
+    cleanDone=true; setProgress(1);
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,canvas.width,canvas.height);
+    germs.forEach(g=>{ if(g.alive) popGerm(g); });
+    stage.classList.add('clean'); autoBtn.disabled=true;
+    for(let i=0;i<18;i++) setTimeout(()=>bubble(160+Math.random()*280,140+Math.random()*140),i*30);
+  }
+  function scrub(x,y){
+    if (cleanDone) return;
+    ctx.setTransform(scale,0,0,scale,0,0);
+    ctx.globalCompositeOperation='destination-out';
+    ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=R*2;
+    ctx.beginPath();
+    if (last){ ctx.moveTo(last.x,last.y); ctx.lineTo(x,y); } else { ctx.moveTo(x,y); ctx.lineTo(x+.1,y); }
+    ctx.stroke();
+    ctx.globalCompositeOperation='source-over';
+    germs.forEach(g=>{ if(g.alive && Math.hypot(g.x-x,g.y-y)<R+12) popGerm(g); });
+    bubble(x,y); check(false);
+  }
+  function toView(e){
+    const r=layers.getBoundingClientRect();
+    return {x:(e.clientX-r.left)/r.width*VW, y:(e.clientY-r.top)/r.height*VH};
+  }
+  function moveTo(p){
+    const dx=p.x-bx; ang = -18 + Math.max(-14,Math.min(14,dx*0.6));
+    bx=p.x; by=p.y; drawBrush();
+  }
+  stage.addEventListener('pointermove',e=>{
+    if (autoRun) return;
+    const p=toView(e); moveTo(p);
+    if (e.pointerType==='mouse' || e.pressure>0 || e.buttons) { scrub(p.x,p.y); last=p; }
+  });
+  stage.addEventListener('pointerdown',e=>{ if(autoRun) return; const p=toView(e); moveTo(p); last=null; scrub(p.x,p.y); last=p; });
+  stage.addEventListener('pointerleave',()=>{ last=null; });
+  stage.addEventListener('pointerup',()=>{ last=null; check(true); });
+
+  // keyboard / lazy mode: zigzag across both rows
+  autoBtn.addEventListener('click',()=>{
+    if (autoRun || cleanDone) return;
+    autoRun=true; last=null; autoBtn.disabled=true;
+    const rows=[];
+    teeth.forEach(t=>{ rows.push({x:t.x+t.w/2, y:t.up? t.y+t.h*.25 : t.y+t.h*.75}); rows.push({x:t.x+t.w/2, y:t.up? t.y+t.h*.75 : t.y+t.h*.25}); });
+    const path=[]; const upper=rows.slice(0,12), lower=rows.slice(12);
+    [upper, lower.reverse()].forEach(seg=>seg.forEach(p=>path.push(p)));
+    // extra sideways pass for coverage
+    teeth.forEach(t=>{ path.push({x:t.x+4,y:t.y+t.h/2}); path.push({x:t.x+t.w-4,y:t.y+t.h/2}); });
+    let i=0, t0=performance.now(), seg=reduce?40:70;
+    function stepAuto(now){
+      if (cleanDone || i>=path.length-1){ autoRun=false; last=null; check(true); if(!cleanDone) finish(); return; }
+      const a=path[i], b=path[i+1], k=Math.min(1,(now-t0)/seg);
+      const p={x:a.x+(b.x-a.x)*k, y:a.y+(b.y-a.y)*k};
+      moveTo(p); scrub(p.x,p.y); last=p;
+      if (k>=1){ i++; t0=now; }
+      requestAnimationFrame(stepAuto);
+    }
+    requestAnimationFrame(stepAuto);
+  });
+  resetBtn.addEventListener('click',()=>{ if(autoRun) return; reset(); });
+
+  reset(); placeSparks(); drawBrush();
+  let lastW=stage.clientWidth, rt;
+  window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(Math.abs(stage.clientWidth-lastW)<4) return; lastW=stage.clientWidth; reset(); drawBrush(); },150); });
+
+  /* ============ AGE FILTER (FLIP) ============ */
+  const chips=[...document.querySelectorAll('.chip')];
+  const cards=[...document.querySelectorAll('#ageCards .scard')];
+  const grow={a0:{s:.55,c:'1–8',l:'pierwszych ząbków'},a1:{s:.72,c:'20',l:'mleczaków do ok. 3 lat'},a3:{s:.88,c:'20',l:'mleczaków w komplecie'},a6:{s:1,c:'24',l:'zęby: mleczne i stałe'}};
+  const gt=document.getElementById('growTooth'), gc=document.getElementById('growCount'), gl=document.getElementById('growLabel');
+  function applyAge(age,animate){
+    chips.forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.age===age)));
+    const g=grow[age]; gt.style.transform='scale('+g.s+')'; gc.textContent=g.c; gl.textContent=g.l;
+    const first=new Map(); cards.forEach(c=>{ if(!c.hidden) first.set(c,c.getBoundingClientRect()); });
+    cards.forEach(c=>{ c.hidden=!c.dataset.ages.split(' ').includes(age); });
+    if (!animate || reduce) return;
+    cards.forEach((c,i)=>{
+      if (c.hidden) return;
+      const l=c.getBoundingClientRect(), f=first.get(c);
+      if (f){ const dx=f.left-l.left, dy=f.top-l.top; if(dx||dy) c.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:500,easing:'cubic-bezier(0.22,1,0.36,1)'}); }
+      else c.animate([{opacity:0,transform:'scale(.92) translateY(14px)'},{opacity:1,transform:'none'}],{duration:450,delay:i*60,easing:'cubic-bezier(0.22,1,0.36,1)',fill:'backwards'});
+    });
+  }
+  chips.forEach(c=>c.addEventListener('click',()=>applyAge(c.dataset.age,true)));
+  applyAge('a3',false);
+
+  /* ============ GIFT WRAP ============ */
+  const gift=document.getElementById('gift'), cap=document.getElementById('giftCaption');
+  const sws=[...document.querySelectorAll('.sw')]; let wrapT;
+  function wrapWith(sw){
+    sws.forEach(s=>s.setAttribute('aria-pressed',String(s===sw)));
+    clearTimeout(wrapT);
+    const go=()=>{ gift.style.setProperty('--paper',getComputedStyle(sw).getPropertyValue('--p')); void gift.offsetWidth; gift.classList.add('wrapped'); cap.textContent='Zapakowane '+sw.dataset.name+'. Wróżka będzie zachwycona!'; };
+    if (gift.classList.contains('wrapped') && !reduce){ gift.classList.remove('wrapped'); cap.textContent='Rozpakowujemy...'; wrapT=setTimeout(go,700); }
+    else go();
+  }
+  sws.forEach(s=>s.addEventListener('click',()=>wrapWith(s)));
+  new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting){ o.disconnect(); setTimeout(()=>{ if(!sws.some(s=>s.getAttribute('aria-pressed')==='true')) wrapWith(sws[0]); },400); } },{threshold:.5}).observe(gift);
+
+  /* ============ TIP ICONS + REVEAL ============ */
+  document.querySelectorAll('.draw svg *').forEach(p=>{ try{ p.style.setProperty('--len',Math.ceil(p.getTotalLength())+1); }catch(e){} });
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); e.target.classList.remove('pre'); io.unobserve(e.target);} }),{threshold:.2});
+  document.querySelectorAll('.draw').forEach(el=>io.observe(el));
+  if (!reduce){
+    document.querySelectorAll('[data-reveal]').forEach((el,i)=>{
+      if (el.getBoundingClientRect().top>innerHeight){ el.classList.add('pre'); el.style.transitionDelay=((i%3)*80)+'ms'; io.observe(el); }
+    });
+  }
+
+  /* ============ COPY PHONE ============ */
+  const cp=document.getElementById('copyPhone');
+  cp.addEventListener('click',()=>{
+    const done=()=>{ cp.textContent='Skopiowano'; setTimeout(()=>cp.textContent='Kopiuj numer',1800); };
+    const fallback=()=>{ const n=document.getElementById('phoneNum'); const r=document.createRange(); r.selectNodeContents(n); const s=getSelection(); s.removeAllRanges(); s.addRange(r); cp.textContent='Zaznaczono'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText('123456789').then(done,fallback); else fallback();
+  });
+
+  /* ============ FOOTER PULL TOY ============ */
+  const pull=document.getElementById('pull'), foot=document.querySelector('footer');
+  const w1=document.getElementById('w1'), w2=document.getElementById('w2');
+  let px=40, tx=40, rot=0, pointerActive=false, footOn=false, t=0;
+  if (!reduce){
+    foot.addEventListener('pointermove',e=>{ pointerActive=true; tx=e.clientX-foot.getBoundingClientRect().left-48; });
+    foot.addEventListener('pointerleave',()=>{ pointerActive=false; });
+    new IntersectionObserver(es=>{ footOn=es[0].isIntersecting; }).observe(foot);
+    (function loop(){
+      if (footOn){
+        const fw=foot.clientWidth;
+        if (!pointerActive){ t+=0.004; tx=(fw-96)*(0.5+0.42*Math.sin(t)); }
+        tx=Math.max(70,Math.min(fw-96,tx));
+        const dx=(tx-px)*0.08; px+=dx; rot+=dx/(Math.PI*18)*360;
+        pull.style.transform='translateX('+px+'px)';
+        w1.style.transform=w2.style.transform='rotate('+rot+'deg)';
+      }
+      requestAnimationFrame(loop);
+    })();
+  } else { pull.style.transform='translateX(80px)'; }
+})();
+</script>
+</body>
+</html>
